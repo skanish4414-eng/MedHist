@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedHist — Lifetime Medical History & Records Vault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- App Header -->
+  <header>
+    <a href="/" class="brand">
+      <div class="brand-icon"><i data-lucide="shield-check"></i></div>
+      <span>MedHist</span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn btn-primary" onclick="openModal('uploadModal')">
+        <i data-lucide="upload-cloud"></i>
+        <span>Upload Report</span>
+      </button>
+      <button class="btn btn-outline" onclick="openModal('addMedModal')">
+        <i data-lucide="pill"></i>
+        <span class="btn-text-hide">Add Med</span>
+      </button>
+      <button id="authBtn" class="btn btn-outline" onclick="handleAuthClick()">
+        <i data-lucide="user"></i>
+        <span id="authBtnText">Login</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Public landing page: shown before sign-in -->
+  <section id="homePage" class="home-page">
+    <div class="home-hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR HEALTH STORY, ORGANIZED</div>
+        <h1>Your medical history.<br><span>All in one place.</span></h1>
+        <p class="hero-description">MedHist helps you organize health reports, keep track of medication notes, and prepare a clearer summary for your next consultation — in one simple digital space.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-hero" onclick="openModal('loginModal')"><i data-lucide="lock-keyhole"></i> Sign in to your vault <i data-lucide="arrow-up-right" class="hero-arrow"></i></button>
+          <a class="hero-text-link" href="#homeFeatures">Explore features <i data-lucide="arrow-down"></i></a>
+        </div>
+        <div class="hero-trust-row"><span><i data-lucide="folder-check"></i> Organized records</span><span><i data-lucide="calendar-check"></i> Easy to review</span><span><i data-lucide="file-text"></i> Consultation-ready summaries</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a digital medical records dashboard">
+        <div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div>
+        <div class="visual-glow"></div>
+        <div class="health-card card-top"><span class="mini-icon mint"><i data-lucide="shield-check"></i></span><div><strong>Personal health vault</strong><small>Keep your history together</small></div><i data-lucide="check-circle-2" class="card-check"></i></div>
+        <div class="health-card card-main"><div class="card-main-head"><span class="mini-icon blue"><i data-lucide="activity"></i></span><div><strong>Health overview</strong><small>Your records, at a glance</small></div><span class="demo-pill">PREVIEW</span></div><div class="preview-metrics"><div><span class="metric-symbol coral"><i data-lucide="heart-pulse"></i></span><small>Cardiac</small><b>Reports</b></div><div><span class="metric-symbol amber"><i data-lucide="droplet"></i></span><small>Blood sugar</small><b>Lab notes</b></div><div><span class="metric-symbol violet"><i data-lucide="gauge"></i></span><small>Blood pressure</small><b>History</b></div></div><div class="preview-list"><div><span class="preview-file"><i data-lucide="file-text"></i></span><div><b>Medical reports</b><small>Organized by category</small></div><i data-lucide="chevron-right"></i></div><div><span class="preview-file teal"><i data-lucide="clipboard-list"></i></span><div><b>Medication notes</b><small>Current and past entries</small></div><i data-lucide="chevron-right"></i></div></div></div>
+        <div class="health-card card-bottom"><span class="mini-icon purple"><i data-lucide="calendar-clock"></i></span><div><strong>Ready for your next visit</strong><small>Build a clearer consultation summary</small></div></div>
+        <div class="floating-plus plus-one">+</div><div class="floating-plus plus-two">✳</div>
+      </div>
+    </div>
+    <div class="home-proof"><div><strong>One space</strong><span>for your health records</span></div><div><strong>Simple tracking</strong><span>for medicine notes</span></div><div><strong>Clear summaries</strong><span>for medical conversations</span></div></div>
+    <section id="homeFeatures" class="home-features">
+      <div class="section-heading"><span class="section-kicker">BUILT AROUND YOUR NEEDS</span><h2>A more organized way to manage your health history.</h2><p>Spend less time searching through files and more time preparing for the conversations that matter.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card"><span class="feature-icon feature-blue"><i data-lucide="folder-open"></i></span><h3>Medical records, together</h3><p>Keep report notes grouped by cardiac, blood sugar, blood pressure, orthopedic, and general health categories.</p></article>
+        <article class="feature-card"><span class="feature-icon feature-teal"><i data-lucide="clipboard-list"></i></span><h3>Medication history</h3><p>Record medication details and distinguish current entries from past entries for easier review.</p></article>
+        <article class="feature-card"><span class="feature-icon feature-violet"><i data-lucide="file-check-2"></i></span><h3>Consultation summaries</h3><p>Bring key notes together in a readable summary you can review or print before an appointment.</p></article>
+      </div>
+    </section>
+    <section class="home-cta"><div><span class="section-kicker">START WITH A CLEARER PICTURE</span><h2>Your health history deserves a home.</h2><p>Sign in to open your MedHist dashboard and continue to your records.</p></div><button class="btn btn-primary btn-hero" onclick="openModal('loginModal')">Open my health vault <i data-lucide="arrow-right"></i></button></section>
+    <footer class="home-footer"><a href="/" class="brand"><span class="brand-icon"><i data-lucide="shield-check"></i></span><span>MedHist</span></a><p>Designed to help organize health information. Not a substitute for professional medical advice.</p><span>© 2026 MedHist</span></footer>
+  </section>
+
+  <main id="dashboardApp" class="container dashboard-app">
+    <aside class="sample-notice" role="note" aria-label="About the example charts and directory">
+      <i data-lucide="info" aria-hidden="true"></i>
+      <span><strong>Sample content:</strong> preloaded reports, chart values, provider names, and medicine-name entries are invented placeholders—not clinical records or treatment advice.</span>
+    </aside>
+      <!-- Patient Identity Card -->
+    <section class="patient-card">
+      <div class="patient-info">
+        <div class="patient-avatar" id="avatarLetter">S</div>
+        <div class="patient-meta">
+          <h2 id="patientNameDisplay">Sk Anisur Rahaman</h2>
+          <div class="patient-badges">
+            <span class="id-tag">Vault ID: <strong id="patientIdDisplay">MH-LOCAL-0001</strong></span>
+            <span class="id-tag">Local Browser Profile</span>
+            <span class="id-tag" style="background: rgba(13, 148, 136, 0.3);">Organized Digital Records</span>
+          </div>
+        </div>
+      </div>
+      <div class="health-illustration" aria-hidden="true">
+        <svg viewBox="0 0 120 120" focusable="false">
+          <defs>
+            <linearGradient id="healthMarkGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#38bdf8"></stop>
+              <stop offset="1" stop-color="#2dd4bf"></stop>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="52" fill="url(#healthMarkGradient)" opacity=".16"></circle>
+          <path d="M60 17 94 30v25c0 23-14 39-34 49C40 94 26 78 26 55V30z" fill="url(#healthMarkGradient)"></path>
+          <path d="M32 61h18l8-17 11 34 8-17h12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <div>
+        <button class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3); background: transparent;" onclick="generateConsultSummary()">
+          <i data-lucide="file-text"></i>
+          <span>Doctor Consultation Summary</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('all-records', this)">
+        <i data-lucide="folder-archive"></i> All Medical History
+      </button>
+      <button class="tab-btn" onclick="switchTab('medicines', this)">
+        <i data-lucide="clipboard-list"></i> Medication Tracker
+      </button>
+      <button class="tab-btn" onclick="switchTab('sample-health', this)">
+        <i data-lucide="activity"></i> Sample Health Graphs
+      </button>
+      <button class="tab-btn" onclick="switchTab('cardiac-view', this)">
+        <i data-lucide="heart-pulse"></i> Cardiac Vault
+      </button>
+      <button class="tab-btn" onclick="switchTab('sugar-view', this)">
+        <i data-lucide="activity"></i> Sugar & Diabetes
+      </button>
+      <button class="tab-btn" onclick="switchTab('bp-view', this)">
+        <i data-lucide="gauge"></i> Blood Pressure
+      </button>
+      <button class="tab-btn" onclick="switchTab('ortho-view', this)">
+        <i data-lucide="bone"></i> Orthopedic
+      </button>
+    </nav>
+
+    <!-- Category Highlight Metric Cards -->
+    <div class="stats-grid">
+      <div class="stat-card cardiac-border" onclick="filterByCategory('Cardiac')">
+        <div class="stat-title">
+          <span>CARDIAC CARE</span>
+          <i data-lucide="heart-pulse" style="color:var(--cardiac); width:18px;"></i>
+        </div>
+        <div class="stat-value" id="cardiacCount">0 Records</div>
+        <small>ECG, Echo, Lipid profiles</small>
+      </div>
+
+      <div class="stat-card sugar-border" onclick="filterByCategory('Sugar')">
+        <div class="stat-title">
+          <span>BLOOD SUGAR</span>
+          <i data-lucide="activity" style="color:var(--sugar); width:18px;"></i>
+        </div>
+        <div class="stat-value" id="sugarCount">0 Records</div>
+        <small>HbA1c, Fasting, Post Prandial</small>
+      </div>
+
+      <div class="stat-card bp-border" onclick="filterByCategory('BP')">
+        <div class="stat-title">
+          <span>BLOOD PRESSURE</span>
+          <i data-lucide="gauge" style="color:var(--bp); width:18px;"></i>
+        </div>
+        <div class="stat-value" id="bpCount">0 Records</div>
+        <small>Hypertension, Ambulatory BP</small>
+      </div>
+
+      <div class="stat-card ortho-border" onclick="filterByCategory('Ortho')">
+        <div class="stat-title">
+          <span>ORTHOPEDIC</span>
+          <i data-lucide="bone" style="color:var(--ortho); width:18px;"></i>
+        </div>
+        <div class="stat-value" id="orthoCount">0 Records</div>
+        <small>X-Rays, Joint assessments</small>
+      </div>
+    </div>
+
+    <!-- TAB 1: ALL RECORDS -->
+    <section id="tab-all-records" class="tab-content active">
+      <div class="filter-bar">
+        <div class="category-filter" id="filterPills">
+          <button class="chip-btn active" onclick="filterRecords('all', this)">All Documents</button>
+          <button class="chip-btn" onclick="filterRecords('Cardiac', this)">Cardiac</button>
+          <button class="chip-btn" onclick="filterRecords('Sugar', this)">Blood Sugar</button>
+          <button class="chip-btn" onclick="filterRecords('BP', this)">Blood Pressure</button>
+          <button class="chip-btn" onclick="filterRecords('Ortho', this)">Orthopedic</button>
+        </div>
+      </div>
+      <div class="records-grid" id="recordsContainer"></div>
+    </section>
+
+    <!-- TAB 2: MEDICATIONS (ACTIVE & PREVIOUS) -->
+    <section id="tab-medicines" class="tab-content">
+      <div class="filter-bar">
+        <h3>Comprehensive Medication History</h3>
+        <button class="btn btn-primary" onclick="openModal('addMedModal')">
+          <i data-lucide="plus"></i> Add New Medicine
+        </button>
+      </div>
+      <div class="meds-split-container">
+        <div class="med-section-card">
+          <div class="med-section-title">
+            <i data-lucide="check-circle-2" style="color: #16a34a;"></i>
+            <span>Active entries (sample names only)</span>
+          </div>
+          <div id="activeMedsContainer"></div>
+        </div>
+        <div class="med-section-card">
+          <div class="med-section-title">
+            <i data-lucide="history" style="color: var(--slate-600);"></i>
+            <span>Past medication entries</span>
+          </div>
+          <div id="pastMedsContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-sample-health" class="tab-content">
+      <h3 class="sample-section-title">Example health trends</h3>
+      <p class="sample-chart-note">Illustrative data only — these values are not measurements and are not medical guidance.</p>
+      <div class="health-chart-grid">
+        <article class="sample-chart-card">
+          <h4>Blood pressure</h4>
+          <div id="bpSampleChart" class="sample-chart" aria-label="Graph and table of fictional blood pressure readings"></div>
+        </article>
+        <article class="sample-chart-card">
+          <h4>Fasting blood glucose</h4>
+          <div id="glucoseSampleChart" class="sample-chart" aria-label="Graph and table of fictional fasting glucose values"></div>
+        </article>
+        <article class="sample-chart-card">
+          <h4>HbA1c percentage</h4>
+          <div id="a1cSampleChart" class="sample-chart" aria-label="Graph and table of fictional HbA1c percentages"></div>
+        </article>
+        <article class="sample-chart-card">
+          <h4>Resting pulse</h4>
+          <div id="pulseSampleChart" class="sample-chart" aria-label="Graph and table of fictional pulse values"></div>
+        </article>
+      </div>
+      <section class="sample-doctors-card" aria-labelledby="sampleDoctorsTitle">
+        <h4 id="sampleDoctorsTitle">Example specialist directory (fictional)</h4>
+        <p>Invented names for layout demonstration only; not real or verified clinicians.</p>
+        <ul>
+          <li><strong>Heart health:</strong> Dr. Mira Sample</li>
+          <li><strong>Diabetes care:</strong> Dr. Arif Example</li>
+          <li><strong>Blood pressure:</strong> Dr. Nila Fiction</li>
+          <li><strong>Bone and joint care:</strong> Dr. Rohan Demo</li>
+          <li><strong>General health:</strong> Dr. Sana Example</li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- FOCUSED CATEGORY TABS -->
+    <section id="tab-cardiac-view" class="tab-content">
+      <h3 style="margin-bottom:1rem;">Cardiac & Heart History</h3>
+      <div class="records-grid" id="cardiacSpecialGrid"></div>
+    </section>
+    <section id="tab-sugar-view" class="tab-content">
+      <h3 style="margin-bottom:1rem;">Diabetes & Glucose Records</h3>
+      <div class="records-grid" id="sugarSpecialGrid"></div>
+    </section>
+    <section id="tab-bp-view" class="tab-content">
+      <h3 style="margin-bottom:1rem;">Blood Pressure & Hypertension Logs</h3>
+      <div class="records-grid" id="bpSpecialGrid"></div>
+    </section>
+    <section id="tab-ortho-view" class="tab-content">
+      <h3 style="margin-bottom:1rem;">Bone & Joint Orthopedic History</h3>
+      <div class="records-grid" id="orthoSpecialGrid"></div>
+    </section>
+  </main>
+
+  <!-- MODAL: LOGIN -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Sign In to MedHist</h3>
+        <button class="close-btn" onclick="closeModal('loginModal')"><i data-lucide="x"></i></button>
+      </div>
+      <form onsubmit="handleLoginSubmit(event)">
+        <p id="loginMessage" style="color:var(--slate-600); margin:0 0 1rem;">Local demo sign-in: demo@example.com / pass123. Changes are stored only in this browser.</p>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="authName" class="form-input" required value="Sk Anisur Rahaman" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="authEmail" class="form-input" required value="demo@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role</label>
+          <select id="authRole" class="form-select">
+            <option value="patient">Patient Vault Owner</option>
+            <option value="doctor">Verified Doctor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="authPin" class="form-input" required value="pass123" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: UPLOAD REPORT -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Upload Digital Report or Prescription</h3>
+        <button class="close-btn" onclick="closeModal('uploadModal')"><i data-lucide="x"></i></button>
+      </div>
+      <form onsubmit="handleUploadSubmit(event)">
+        <div class="dropzone" onclick="document.getElementById('fileInput').click()">
+          <i data-lucide="upload-cloud" style="width:36px; height:36px; color:var(--primary); margin:0 auto;"></i>
+          <p><strong>Choose a file name (the file itself is not uploaded)</strong></p>
+          <input type="file" id="fileInput" style="display:none;" onchange="handleFileSelected(this)" />
+          <div id="selectedFileName" style="margin-top:0.5rem; font-weight:700; color:var(--primary);"></div>
+          <small>The file itself stays on your device and is not uploaded or saved.</small>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Document Title</label>
+          <input type="text" id="recTitle" class="form-input" placeholder="e.g. Lipid Profile, 2D Echo, Blood Sugar" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="recCategory" class="form-select" required>
+            <option value="Cardiac">Cardiac Problem</option>
+            <option value="Sugar">Blood Sugar / Diabetes</option>
+            <option value="BP">Blood Pressure</option>
+            <option value="Ortho">Orthopedic</option>
+            <option value="General">General / Routine</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Doctor / Hospital Name</label>
+          <input type="text" id="recDoctor" class="form-input" placeholder="e.g. Dr. Mukherjee, Apollo Clinic" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Clinical Observations & Findings</label>
+          <textarea id="recNotes" rows="3" class="form-textarea" placeholder="Key numbers, conclusion, medical notes..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Record Date</label>
+          <input type="date" id="recDate" class="form-input" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Save to Digital History</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD MEDICINE -->
+  <div class="modal-backdrop" id="addMedModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add Medicine Entry</h3>
+        <button class="close-btn" onclick="closeModal('addMedModal')"><i data-lucide="x"></i></button>
+      </div>
+      <form onsubmit="handleMedSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Medicine Name & Strength</label>
+          <input type="text" id="medName" class="form-input" placeholder="Enter a medicine name from your own records" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Condition</label>
+          <select id="medCondition" class="form-select">
+            <option value="BP">Blood Pressure</option>
+            <option value="Sugar">Blood Sugar</option>
+            <option value="Cardiac">Cardiac Issue</option>
+            <option value="Ortho">Orthopedic</option>
+            <option value="General">Other Past Illness</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Medication Timeline</label>
+          <select id="medStatus" class="form-select">
+            <option value="active">Currently Taking (Active)</option>
+            <option value="past">Previously Taken (Past Disease)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dosage & Frequency</label>
+          <input type="text" id="medDosage" class="form-input" placeholder="Enter details from a clinician's instructions" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Prescribing Doctor</label>
+          <input type="text" id="medDoc" class="form-input" placeholder="e.g. Dr. Sen" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Save Medicine</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: SUMMARY -->
+  <div class="modal-backdrop" id="summaryModal">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3>Doctor Consultation Brief</h3>
+        <button class="close-btn" onclick="closeModal('summaryModal')"><i data-lucide="x"></i></button>
+      </div>
+      <div class="summary-box" id="summaryContent"></div>
+      <div style="display:flex; justify-content: flex-end; gap:0.75rem; margin-top:1rem;">
+        <button class="btn btn-outline" onclick="window.print()"><i data-lucide="printer"></i> Print</button>
+        <button class="btn btn-primary" onclick="closeModal('summaryModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

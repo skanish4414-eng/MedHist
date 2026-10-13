@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: medhist
+    runtime: static
+    buildCommand: mkdir -p public && cp index.html app.js style.css public/
+    staticPublishPath: ./public
